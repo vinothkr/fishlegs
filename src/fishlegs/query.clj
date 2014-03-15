@@ -9,8 +9,8 @@
    ">=" $gte})
 
 
-(defn metrics [& clauses]
-  (mongo/find-maps "metric" (first (reduce conj clauses {}))))
+(defn metrics [metric & clauses]
+  (mongo/find-maps "metric" (reduce conj (first clauses) {:metric metric})))
 
 (defmacro having [field & opvalues]
   {field (reduce conj (map (fn[x] {(oplookup (str (first x))) (second x)}) opvalues))})
